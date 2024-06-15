@@ -5,6 +5,7 @@ Color  textfield = Color(0xFF949494);
 Color black = Color(0xFF000000);
 Color entireapp = Color(0xFF28A745);
 Color scaffold = Color(0xFFF5F5F5);
+Color admindashtext= Color(0xFF7777777);
 Color white = Color(0xFFFFFFFF);
 Color card = Color(0xFFE0E0E0);
 Color searchbar = Color(0xFFFF6347);
