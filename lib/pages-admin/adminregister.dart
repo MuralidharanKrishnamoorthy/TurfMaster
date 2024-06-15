@@ -3,6 +3,7 @@ import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:turfbooking/colors/colors.dart";
 import 'package:otp_text_field/otp_field.dart';
+import "package:turfbooking/pages-admin/admindashboard.dart";
 class adminregister extends StatefulWidget {
   const adminregister({super.key});
 
@@ -255,7 +256,9 @@ class _adminregisterState extends State<adminregister> {
                     child: Container(
                       child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>admindashboard()));
+                          },
                           child: Text('Register',
                             style: GoogleFonts.poppins(fontSize: 20,color: white),),
                           style: ElevatedButton.styleFrom(
