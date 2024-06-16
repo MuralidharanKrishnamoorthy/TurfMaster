@@ -39,7 +39,7 @@ class _admindashboardState extends State<admindashboard> {
       if (image == null) continue;
 
       String url =
-          'http://10.0.2.2:5000/upload'; // Use 10.0.2.2 to refer to localhost from Android emulator
+          'http://10.0.2.2:5000/upload'; 
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.files.add(await http.MultipartFile.fromPath('image', image.path));
