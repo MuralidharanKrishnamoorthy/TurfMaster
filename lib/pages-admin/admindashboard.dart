@@ -29,7 +29,7 @@ class _admindashboardState extends State<admindashboard> {
       if (pickedFile != null) {
         _images.add(File(pickedFile.path));
       } else {
-        print('No image selected.');
+
       }
     });
   }
@@ -38,8 +38,7 @@ class _admindashboardState extends State<admindashboard> {
     for (var image in _images) {
       if (image == null) continue;
 
-      String url =
-          '';
+      String url = 'http://10.0.2.2:5000/upload';
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.files.add(await http.MultipartFile.fromPath('image', image.path));
@@ -132,7 +131,8 @@ class _admindashboardState extends State<admindashboard> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(left: 5,right: 5),
+              Padding(
+                padding: EdgeInsets.only(left: 5, right: 5),
                 child: SizedBox(
                   height: 45,
                   child: ElevatedButton(
