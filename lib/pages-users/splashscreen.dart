@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animated_text_kit/animated_text_kit.dart'; // Import the animated_text_kit package
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:turfbooking/colors/colors.dart';
 import 'package:turfbooking/pages-admin/adminlogin.dart';
-import 'package:turfbooking/pages-admin/adminregister.dart';
-import 'package:turfbooking/pages-users/userlogin.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,6 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool _showSecondSequence = false;
   bool _showLoginAndButtons = false;
+  bool _showSpinKit = false;
 
   void _onFirstSequenceComplete() {
     setState(() {
@@ -27,6 +27,19 @@ class _SplashScreenState extends State<SplashScreen> {
   void _onTypewriterComplete() {
     setState(() {
       _showLoginAndButtons = true;
+      _showSpinKit = true;
+    });
+
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        _showSpinKit = false;
+      });
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => adminlogin(),
+        ),
+      );
     });
   }
 
@@ -59,8 +72,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     texts: ['Welcome to', 'TurfMaster'],
                     durations: [Duration(seconds: 1), Duration(seconds: 1)],
                     textStyles: [
-                      GoogleFonts.poppins(fontSize: 38, fontWeight: FontWeight.bold, color: entireapp),
-                      GoogleFonts.poppins(fontSize: 33, fontWeight: FontWeight.bold, color: entireapp),
+                      GoogleFonts.poppins(
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold,
+                          color: entireapp),
+                      GoogleFonts.poppins(
+                          fontSize: 33,
+                          fontWeight: FontWeight.bold,
+                          color: entireapp),
                     ],
                     onComplete: _onFirstSequenceComplete,
                   ),
@@ -68,85 +87,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   if (_showSecondSequence)
                     AnimatedTypewriterText(onComplete: _onTypewriterComplete),
                   SizedBox(height: 10),
-                  AnimatedOpacity(
-                    opacity: _showLoginAndButtons ? 1.0 : 0.0,
-                    duration: Duration(milliseconds: 20),
-                    child: Visibility(
-                      visible: _showLoginAndButtons,
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Log in to Get Started ! ',
-                                    style: GoogleFonts.poppins(
-                                      color: black,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 50,right: 60),
-                              child: Divider(height: 10,color: entireapp,)),
-                          Container(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Userlogin()));
-                                    },
-                                    child: Text(
-                                      '  User  ',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                        color: scaffold,
-                                      ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: entireapp,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(2),
-                                        )),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>adminlogin()));
-                                    },
-                                    child: Text(
-                                      'Admin',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                        color: entireapp,
-                                      ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(2),
-                                        side: BorderSide(color: buttonColor, width: 2),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                  if (_showSpinKit)
+                    SpinKitCircle(
+                      color: entireapp,
+                      size: 50.0,
                     ),
-                  ),
                 ],
               ),
             ),
@@ -243,7 +188,8 @@ class AnimatedTypewriterText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: GoogleFonts.poppins(fontSize: 16.0, fontWeight: FontWeight.w600, color: entireapp),
+      style: GoogleFonts.poppins(
+          fontSize: 16.0, fontWeight: FontWeight.w600, color: entireapp),
       child: AnimatedTextKit(
         animatedTexts: [
           TypewriterAnimatedText(

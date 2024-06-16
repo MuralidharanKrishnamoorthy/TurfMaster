@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:turfbooking/pages-users/splashscreen.dart';
-import 'package:turfbooking/pages-users/userlogin.dart';
 void main() {
   runApp(const MyApp());
 }
