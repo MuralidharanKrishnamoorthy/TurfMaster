@@ -17,22 +17,23 @@ class _admindashboardState extends State<admindashboard> {
   final _timecontroller = TextEditingController();
   final _Turfdetailcontroller = TextEditingController();
   final _amountcontroller = TextEditingController();
+  final _turfnamecontroller = TextEditingController();
   String _selectedPeriod = 'AM';
   List<String> slots = [];
   List<File> _images = [];
+  String _location = 'Location not set';
 
   Future<void> _pickImage() async {
     final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    await ImagePicker().pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
         _images.add(File(pickedFile.path));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please select a image'),backgroundColor: errorcolor,)
-         );
-
+          SnackBar(content: Text('Please select an image'), backgroundColor: errorcolor,),
+        );
       }
     });
   }
@@ -93,11 +94,90 @@ class _admindashboardState extends State<admindashboard> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(left: 8),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 5, right: 5, top: 10),
+                  child: SizedBox(
+                    height: 45,
+                    child: TextField(
+                      keyboardType: TextInputType.name,
+                      controller: _turfnamecontroller,
+                      cursorColor: linkColor,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.sports, color: entireapp,),
+                        labelText: 'TurfName',
+                        labelStyle: GoogleFonts.poppins(color: black, fontSize: 15),
+                        hintText: 'Enter turf name',
+                        fillColor: scaffold,
+                        filled: true,
+                        hintStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w300),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(color: entireapp, width: 2),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(color: entireapp, width: 2),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(color: entireapp, width: 2),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.red, width: 2),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(color: Colors.red, width: 2),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      child: SizedBox(
+                        height: 55,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10, left: 5, right: 5),
+                          child: ElevatedButton(
+                            onPressed: (){
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: entireapp,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6))),
+                            child: Text(
+                              'Add Location',
+                              style: GoogleFonts.niramit(color: white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      child: Text(
+                        _location,
+                        style: GoogleFonts.poppins(color: black, fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 8, top: 7),
                 child: Text(
                   'Add Images',
-                  style:
-                      GoogleFonts.niramit(fontSize: 20, color: admindashtext),
+                  style: GoogleFonts.niramit(fontSize: 20, color: admindashtext),
                 ),
               ),
               Padding(
@@ -135,7 +215,7 @@ class _admindashboardState extends State<admindashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5, right: 5),
+                padding: EdgeInsets.only(left: 5, right: 5, top: 10),
                 child: SizedBox(
                   height: 45,
                   child: ElevatedButton(
@@ -155,8 +235,7 @@ class _admindashboardState extends State<admindashboard> {
                 margin: EdgeInsets.only(left: 8, top: 10),
                 child: Text(
                   'Add Slots',
-                  style:
-                      GoogleFonts.niramit(fontSize: 20, color: admindashtext),
+                  style: GoogleFonts.niramit(fontSize: 20, color: admindashtext),
                 ),
               ),
               Padding(
@@ -180,19 +259,16 @@ class _admindashboardState extends State<admindashboard> {
                                   Icons.access_time_sharp,
                                   color: entireapp,
                                 ),
-                                hintStyle:
-                                    GoogleFonts.poppins(color: admindashtext),
+                                hintStyle: GoogleFonts.poppins(color: admindashtext),
                                 fillColor: scaffold,
                                 filled: true,
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(6),
-                                  borderSide:
-                                      BorderSide(color: entireapp, width: 2),
+                                  borderSide: BorderSide(color: entireapp, width: 2),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(6),
-                                  borderSide:
-                                      BorderSide(color: entireapp, width: 2),
+                                  borderSide: BorderSide(color: entireapp, width: 2),
                                 ),
                               ),
                             ),
@@ -213,20 +289,19 @@ class _admindashboardState extends State<admindashboard> {
                             child: DropdownButton<String>(
                               value: _selectedPeriod,
                               dropdownColor: scaffold,
-                              icon:
-                                  Icon(Icons.arrow_drop_down, color: entireapp),
+                              icon: Icon(Icons.arrow_drop_down, color: entireapp),
                               underline: SizedBox(
                                 height: 45,
                               ),
                               items: <String>['AM', 'PM']
                                   .map<DropdownMenuItem<String>>(
                                     (String value) => DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value,
-                                          style: TextStyle(
-                                              color: entireapp, fontSize: 16)),
-                                    ),
-                                  )
+                                  value: value,
+                                  child: Text(value,
+                                      style: TextStyle(
+                                          color: entireapp, fontSize: 16)),
+                                ),
+                              )
                                   .toList(),
                               onChanged: (String? newValue) {
                                 setState(() {
@@ -243,7 +318,7 @@ class _admindashboardState extends State<admindashboard> {
                           child: ElevatedButton(
                             onPressed: _addSlot,
                             child: Text(
-                              'add ',
+                              'Add',
                               style: GoogleFonts.poppins(color: white),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -263,8 +338,7 @@ class _admindashboardState extends State<admindashboard> {
                 margin: EdgeInsets.only(left: 8, top: 10),
                 child: Text(
                   'Slots',
-                  style:
-                      GoogleFonts.niramit(fontSize: 20, color: admindashtext),
+                  style: GoogleFonts.niramit(fontSize: 20, color: admindashtext),
                 ),
               ),
               Wrap(
@@ -285,8 +359,7 @@ class _admindashboardState extends State<admindashboard> {
                 margin: EdgeInsets.only(left: 8, top: 10),
                 child: Text(
                   'Write about your Turf',
-                  style:
-                      GoogleFonts.niramit(fontSize: 20, color: admindashtext),
+                  style: GoogleFonts.niramit(fontSize: 20, color: admindashtext),
                 ),
               ),
               Padding(
@@ -312,13 +385,11 @@ class _admindashboardState extends State<admindashboard> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(color: Colors.transparent, width: 2),
+                          borderSide: BorderSide(color: Colors.transparent, width: 2),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(color: Colors.transparent, width: 2),
+                          borderSide: BorderSide(color: Colors.transparent, width: 2),
                         ),
                       ),
                     ),
@@ -338,21 +409,18 @@ class _admindashboardState extends State<admindashboard> {
                           cursorColor: entireapp,
                           decoration: InputDecoration(
                             hintText: "Enter price per hour",
-                            hintStyle:
-                                GoogleFonts.poppins(color: admindashtext),
+                            hintStyle: GoogleFonts.poppins(color: admindashtext),
                             prefixIcon: Icon(
                               Icons.currency_rupee,
                               color: entireapp,
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
-                              borderSide:
-                                  BorderSide(color: entireapp, width: 2),
+                              borderSide: BorderSide(color: entireapp, width: 2),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6),
-                              borderSide:
-                                  BorderSide(color: entireapp, width: 2),
+                              borderSide: BorderSide(color: entireapp, width: 2),
                             ),
                           ),
                         ),
@@ -366,7 +434,7 @@ class _admindashboardState extends State<admindashboard> {
                           // Save slots and other data to the database here
                         },
                         child: Text(
-                          ' Save ',
+                          'Save',
                           style: GoogleFonts.poppins(color: white),
                         ),
                         style: ElevatedButton.styleFrom(
