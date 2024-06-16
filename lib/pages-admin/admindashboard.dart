@@ -29,6 +29,9 @@ class _admindashboardState extends State<admindashboard> {
       if (pickedFile != null) {
         _images.add(File(pickedFile.path));
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please select a image'),backgroundColor: errorcolor,)
+         );
 
       }
     });
