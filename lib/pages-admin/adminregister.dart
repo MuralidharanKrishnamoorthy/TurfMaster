@@ -13,12 +13,12 @@ class adminregister extends StatefulWidget {
 class _adminregisterState extends State<adminregister> {
   @override
   Widget build(BuildContext context) {
-    final _turfnamecontroller= TextEditingController();
-    final _turflocationcontroller=TextEditingController();
+
+
     final _turfownernamecontroller=TextEditingController();
     final _turfcontactnumbercontoller=TextEditingController();
     final _createpasswordcontroller=TextEditingController();
-    final _otpcontroller = TextEditingController();
+
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(20),
         child: AppBar(
@@ -44,85 +44,6 @@ class _adminregisterState extends State<adminregister> {
                   child: Text('Register',
                     style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: entireapp,fontSize:30 ,),
                   ),
-                ),
-                Container(
-                  child: Padding(padding: EdgeInsets.only(left: 30,right: 30,top: 10),
-                    child: TextField(
-                      keyboardType:TextInputType.name ,
-                      controller: _turfnamecontroller,
-                      cursorColor: linkColor,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.sports,color: entireapp,),
-                        labelText: 'TurfName',
-                        labelStyle: GoogleFonts.poppins(color: black,fontSize: 15),
-                        hintText: 'enter turf name',
-                        fillColor: scaffold,
-                        filled: true,
-                        hintStyle: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w300),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: entireapp,width: 2)
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: entireapp, width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: entireapp, width: 2),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.red, width: 2),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.red, width: 2),
-                        ),
-                      ),
-
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Padding(padding: EdgeInsets.only(left: 30,right: 30,top: 10),
-                    child: TextField(
-                      cursorColor: linkColor,
-                      keyboardType:TextInputType.streetAddress,
-                      controller: _turflocationcontroller,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.location_on_sharp,color: entireapp,),
-                        labelText: 'Turf Location',
-                        labelStyle: GoogleFonts.poppins(color: black,fontSize: 15),
-                        hintText: 'enter turf location',
-                        fillColor: scaffold,
-                        filled: true,
-                        hintStyle: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w300),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: entireapp,width: 2)
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: entireapp, width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: entireapp, width: 2),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.red, width: 2),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.red, width: 2),
-                        ),
-                      ),
-
-                    ),
-                  ),
-
                 ),
                 Container(
                   child: Padding(padding: EdgeInsets.only(left: 30,right: 30,top: 10),
