@@ -39,7 +39,7 @@ class _admindashboardState extends State<admindashboard> {
       if (image == null) continue;
 
       String url =
-          'http://10.0.2.2:5000/upload'; // Use 10.0.2.2 to refer to localhost from Android emulator
+          '';
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.files.add(await http.MultipartFile.fromPath('image', image.path));
@@ -119,8 +119,8 @@ class _admindashboardState extends State<admindashboard> {
                             iconSize: 40,
                             icon: Image.asset(
                               'images/addimage.png',
-                              width: 50,
-                              height: 50,
+                              width: 30,
+                              height: 30,
                             ),
                             highlightColor: Colors.transparent,
                           );
@@ -132,15 +132,20 @@ class _admindashboardState extends State<admindashboard> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: _uploadImages,
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: entireapp,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6))),
-                child: Text(
-                  'Upload Images',
-                  style: GoogleFonts.niramit(color: white),
+              Padding(padding: EdgeInsets.only(left: 5,right: 5),
+                child: SizedBox(
+                  height: 45,
+                  child: ElevatedButton(
+                    onPressed: _uploadImages,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: entireapp,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6))),
+                    child: Text(
+                      'Upload Images',
+                      style: GoogleFonts.niramit(color: white),
+                    ),
+                  ),
                 ),
               ),
               Container(
