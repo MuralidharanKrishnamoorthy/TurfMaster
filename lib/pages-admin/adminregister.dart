@@ -2,7 +2,6 @@ import"package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:turfbooking/colors/colors.dart";
-import 'package:otp_text_field/otp_field.dart';
 import "package:turfbooking/pages-admin/admindashboard.dart";
 class adminregister extends StatefulWidget {
   const adminregister({super.key});
