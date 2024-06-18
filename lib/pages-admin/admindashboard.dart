@@ -49,6 +49,7 @@ class _admindashboardState extends State<admindashboard> {
 
       var response = await request.send();
 
+
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
         var jsonResponse = json.decode(responseData);
@@ -97,7 +98,7 @@ class _admindashboardState extends State<admindashboard> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 5, right: 5, top: 10),
                   child: SizedBox(
-                    height: 45,
+                    height: 50,
                     child: TextField(
                       keyboardType: TextInputType.name,
                       controller: _turfnamecontroller,
@@ -167,7 +168,8 @@ class _admindashboardState extends State<admindashboard> {
                     child: Container(
                       child: Text(
                         _location,
-                        style: GoogleFonts.poppins(color: black, fontSize: 15),
+
+                        style: GoogleFonts.niramit(color: admindashtext, fontSize: 15,),
                       ),
                     ),
                   ),
@@ -219,7 +221,10 @@ class _admindashboardState extends State<admindashboard> {
                 child: SizedBox(
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: _uploadImages,
+                    onPressed: (){
+
+                      _uploadImages();
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: entireapp,
                         shape: RoundedRectangleBorder(
