@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:turfbooking/pages-users/splashscreen.dart';
+import 'package:turfbooking/admin-splash/splashscreen.dart';
+
 void main() {
   runApp(const MyApp());
 }
