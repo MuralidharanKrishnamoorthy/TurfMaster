@@ -240,12 +240,12 @@ class _adminregisterState extends State<adminregister> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 20, right: 20),
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => OTP_verify()));
-                          },
+                          onPressed:  registeruser,
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) => OTP_verify()));
+                          // },
                           child: Text(
                             'Register',
                             style:

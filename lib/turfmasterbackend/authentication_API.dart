@@ -14,11 +14,11 @@ Future<Map<String, dynamic>> register(String ownerName, String contactNumber, St
   );
 }
 
-Future<Map<String, dynamic>> login(String ownerName, String createPassword) async {
+Future<Map<String, dynamic>> login(String contactNumber, String createPassword) async {
   return await _postRequest(
     'login',
     body: {
-      'OwnerName': ownerName,
+      'ContactNumber': contactNumber,
       'CreatePassword': createPassword,
     },
   );
