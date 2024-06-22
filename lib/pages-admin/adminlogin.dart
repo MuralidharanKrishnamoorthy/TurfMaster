@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:turfbooking/colors/colors.dart";
+import "package:turfbooking/pages-admin/admindashboard.dart";
 import "package:turfbooking/pages-admin/adminregister.dart";
 import "package:turfbooking/turfmasterbackend/authentication_API.dart";
 
@@ -40,6 +41,7 @@ class _adminloginState extends State<adminlogin> {
           content: Text('Successfully logged in'),
           backgroundColor: sucesscolor,
         ));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>admindashboard()));
       } catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Failed to login :$error'),
@@ -96,10 +98,10 @@ class _adminloginState extends State<adminlogin> {
                           Icons.person_2_outlined,
                           color: entireapp,
                         ),
-                        labelText: 'Admin Name',
+                        labelText: 'Contact Number',
                         labelStyle:
                             GoogleFonts.poppins(color: black, fontSize: 15),
-                        hintText: 'enter admin name',
+                        hintText: 'enter contact number',
                         fillColor: scaffold,
                         filled: true,
                         hintStyle: GoogleFonts.poppins(
@@ -134,7 +136,7 @@ class _adminloginState extends State<adminlogin> {
                       cursorColor: linkColor,
                       maxLines: 1,
                       obscureText: true,
-                      obscuringCharacter: '*',
+                      obscuringCharacter: '.',
                       keyboardType: TextInputType.visiblePassword,
                       controller: _adminpasswordcontroller,
                       decoration: InputDecoration(

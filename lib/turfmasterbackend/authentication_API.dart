@@ -1,66 +1,35 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
-const String baseUrl = 'http://10.0.2.2:3000/api/admin/';
+const String baseUrl = 'http://192.168.1.8:8000/api/admin/';
 
 Future<Map<String, dynamic>> register(String ownerName, String contactNumber, String createPassword) async {
-  final url = Uri.parse(baseUrl + 'register');
-  final response = await http.post(
-    url,
-    body: jsonEncode({
+  return await _postRequest(
+    'register',
+    body: {
       'OwnerName': ownerName,
       'ContactNumber': contactNumber,
       'CreatePassword': createPassword,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
     },
   );
-
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body);
-  } else {
-    throw Exception('Failed to register user');
-  }
 }
 
 Future<Map<String, dynamic>> login(String ownerName, String createPassword) async {
-  final url = Uri.parse(baseUrl + 'login');
-  final response = await http.post(
-    url,
-    body: jsonEncode({
+  return await _postRequest(
+    'login',
+    body: {
       'OwnerName': ownerName,
       'CreatePassword': createPassword,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
     },
   );
-
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body);
-  } else {
-    throw Exception('Failed to login');
-  }
 }
 
 Future<Map<String, dynamic>> addTurfDetails(String token, Map<String, dynamic> turfData) async {
-  final url = Uri.parse(baseUrl + 'admindashboard/details');
-  final response = await http.post(
-    url,
-    body: jsonEncode(turfData),
-    headers: {
-      'Content-Type': 'application/json',
-      'auth-token': token,
-    },
+  return await _postRequest(
+    'admindashboard/details',
+    body: turfData,
+    token: token,
   );
-
-  if (response.statusCode == 201) {
-    return jsonDecode(response.body);
-  } else {
-    throw Exception('Failed to add turf details');
-  }
 }
 
 Future<Map<String, dynamic>> uploadImage(String token, String filePath) async {
@@ -69,11 +38,40 @@ Future<Map<String, dynamic>> uploadImage(String token, String filePath) async {
     ..headers['auth-token'] = token
     ..files.add(await http.MultipartFile.fromPath('file', filePath));
 
-  final response = await http.Response.fromStream(await request.send());
+  final streamResponse = await request.send();
+  final response = await http.Response.fromStream(streamResponse);
 
   if (response.statusCode == 200) {
     return jsonDecode(response.body);
   } else {
-    throw Exception('Failed to upload image');
+    _handleError(response);
+    return {
+
+    };
   }
+}
+
+Future<Map<String, dynamic>> _postRequest(String endpoint, {Map<String, dynamic>? body, String? token}) async {
+  final url = Uri.parse(baseUrl + endpoint);
+  final headers = {
+    'Content-Type': 'application/json',
+    if (token != null) 'auth-token': token,
+  };
+
+  final response = await http.post(
+    url,
+    body: jsonEncode(body),
+    headers: headers,
+  );
+
+  if (response.statusCode >= 200 && response.statusCode < 300) {
+    return jsonDecode(response.body);
+  } else {
+    _handleError(response);
+    return {};
+  }
+}
+
+void _handleError(http.Response response) {
+  throw Exception('Failed with status code ${response.statusCode}: ${response.body}');
 }

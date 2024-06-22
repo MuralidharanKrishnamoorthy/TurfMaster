@@ -1,10 +1,9 @@
-
-
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:turfbooking/colors/colors.dart";
 import "package:turfbooking/pages-admin/adminlogin.dart";
+import "package:turfbooking/pages-admin/otpverify.dart";
 import "package:turfbooking/turfmasterbackend/authentication_API.dart";
 
 class adminregister extends StatefulWidget {
@@ -20,6 +19,7 @@ class _adminregisterState extends State<adminregister> {
     final _turfownernamecontroller = TextEditingController();
     final _turfcontactnumbercontoller = TextEditingController();
     final _createpasswordcontroller = TextEditingController();
+    final otpfieldcontroller= TextEditingController();
 
     Future<void> registeruser() async {
       try {
@@ -184,13 +184,14 @@ class _adminregisterState extends State<adminregister> {
                     ),
                   ),
                 ),
+
                 Container(
                   child: Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextField(
                       cursorColor: linkColor,
                       obscureText: true,
-                      obscuringCharacter: '*',
+                      obscuringCharacter: '.',
                       inputFormatters: [LengthLimitingTextInputFormatter(10)],
                       keyboardType: TextInputType.visiblePassword,
                       controller: _createpasswordcontroller,
@@ -239,12 +240,12 @@ class _adminregisterState extends State<adminregister> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 20, right: 20),
                         child: ElevatedButton(
-                          onPressed: registeruser,
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => admindashboard()));
-
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OTP_verify()));
+                          },
                           child: Text(
                             'Register',
                             style:
@@ -259,7 +260,9 @@ class _adminregisterState extends State<adminregister> {
                       ),
                     ),
                   ),
+
                 ),
+
               ]),
         ),
       ),
