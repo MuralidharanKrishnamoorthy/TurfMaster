@@ -51,6 +51,7 @@ Future<Map<String, dynamic>> uploadImage(String token, String filePath) async {
   }
 }
 
+
 Future<Map<String, dynamic>> _postRequest(String endpoint, {Map<String, dynamic>? body, String? token}) async {
   final url = Uri.parse(baseUrl + endpoint);
   final headers = {
@@ -73,5 +74,12 @@ Future<Map<String, dynamic>> _postRequest(String endpoint, {Map<String, dynamic>
 }
 
 void _handleError(http.Response response) {
-  throw Exception('Failed with status code ${response.statusCode}: ${response.body}');
+  String errorMessage;
+  try {
+    final decodedResponse = jsonDecode(response.body);
+    errorMessage = decodedResponse['message'] ?? 'Unknown error occurred';
+  } catch (e) {
+    errorMessage = response.body.isNotEmpty ? response.body : 'Unknown error occurred';
+  }
+  throw Exception(errorMessage);
 }
