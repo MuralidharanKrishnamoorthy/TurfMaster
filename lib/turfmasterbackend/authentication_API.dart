@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 
 const String baseUrl = 'http://192.168.1.8:8000/api/admin/';
 
-Future<Map<String, dynamic>> register(String ownerName, String contactNumber, String createPassword) async {
+Future<Map<String, dynamic>> register(
+    String ownerName, String contactNumber, String createPassword) async {
   return await _postRequest(
     'register',
     body: {
@@ -14,7 +16,8 @@ Future<Map<String, dynamic>> register(String ownerName, String contactNumber, St
   );
 }
 
-Future<Map<String, dynamic>> login(String contactNumber, String createPassword) async {
+Future<Map<String, dynamic>> login(
+    String contactNumber, String createPassword) async {
   return await _postRequest(
     'login',
     body: {
@@ -24,35 +27,41 @@ Future<Map<String, dynamic>> login(String contactNumber, String createPassword) 
   );
 }
 
-Future<Map<String, dynamic>> addTurfDetails(String token, Map<String, dynamic> turfData) async {
-  return await _postRequest(
-    'admindashboard/details',
-    body: turfData,
-    token: token,
-  );
-}
-
-Future<Map<String, dynamic>> uploadImage(String token, String filePath) async {
-  final url = Uri.parse(baseUrl + 'admin/image/upload');
+Future<Map<String, dynamic>> uploadDetails({
+  required String token,
+  required String turfName,
+  required String location,
+  required List<File> images,
+  required List<String> slots,
+  required String description,
+  required String price,
+}) async {
+  final url = Uri.parse(baseUrl + 'api/admin/add');
   final request = http.MultipartRequest('POST', url)
     ..headers['auth-token'] = token
-    ..files.add(await http.MultipartFile.fromPath('file', filePath));
+    ..fields['turfName'] = turfName
+    ..fields['location'] = location
+    ..fields['slots'] = jsonEncode(slots)
+    ..fields['description'] = description
+    ..fields['price'] = price;
+
+  for (var image in images) {
+    request.files.add(await http.MultipartFile.fromPath('images', image.path));
+  }
 
   final streamResponse = await request.send();
   final response = await http.Response.fromStream(streamResponse);
 
-  if (response.statusCode == 200) {
+  if (response.statusCode >= 200 && response.statusCode < 300) {
     return jsonDecode(response.body);
   } else {
     _handleError(response);
-    return {
-
-    };
+    return {};
   }
 }
 
-
-Future<Map<String, dynamic>> _postRequest(String endpoint, {Map<String, dynamic>? body, String? token}) async {
+Future<Map<String, dynamic>> _postRequest(String endpoint,
+    {Map<String, dynamic>? body, String? token}) async {
   final url = Uri.parse(baseUrl + endpoint);
   final headers = {
     'Content-Type': 'application/json',
@@ -79,7 +88,8 @@ void _handleError(http.Response response) {
     final decodedResponse = jsonDecode(response.body);
     errorMessage = decodedResponse['message'] ?? 'Unknown error occurred';
   } catch (e) {
-    errorMessage = response.body.isNotEmpty ? response.body : 'Unknown error occurred';
+    errorMessage =
+        response.body.isNotEmpty ? response.body : 'Unknown error occurred';
   }
   throw Exception(errorMessage);
 }
