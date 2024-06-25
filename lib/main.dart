@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turfbooking/admin-splash/splashscreen.dart';
+import 'package:turfbooking/navigation/navigatebar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/':(context)=> SplashScreen(),
+        '/home': (context) => navigatebar(),
 
       },
 

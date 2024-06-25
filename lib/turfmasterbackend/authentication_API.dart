@@ -91,5 +91,5 @@ void _handleError(http.Response response) {
     errorMessage =
         response.body.isNotEmpty ? response.body : 'Unknown error occurred';
   }
-  throw Exception(errorMessage);
+  throw (errorMessage);
 }

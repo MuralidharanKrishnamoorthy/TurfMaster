@@ -5,7 +5,6 @@ import "package:turfbooking/pages-admin/admindashboard.dart";
 import "package:turfbooking/pages-admin/adminregister.dart";
 import "package:turfbooking/turfmasterbackend/authentication_API.dart";
 
-
 class adminlogin extends StatefulWidget {
   const adminlogin({super.key});
 
@@ -21,6 +20,14 @@ class _adminloginState extends State<adminlogin> {
 
     Future<void> loginuser() async {
       try {
+        if (_adminnamecontoller.text.isEmpty &&
+            _adminpasswordcontroller.text.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Enter all the details'),
+            backgroundColor: errorcolor,
+          ));
+          return;
+        }
         if (_adminnamecontoller.text.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Enter owner name'),
@@ -28,6 +35,7 @@ class _adminloginState extends State<adminlogin> {
           ));
           return;
         }
+
         if (_adminpasswordcontroller.text.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Enter Password'),
@@ -38,10 +46,13 @@ class _adminloginState extends State<adminlogin> {
         final response = await login(
             _adminnamecontoller.text, _adminpasswordcontroller.text);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Successfully logged in'),
-          backgroundColor: sucesscolor,
+          content: Text('Successfully logged in',
+              style: GoogleFonts.poppins(color: entireapp)),
+          backgroundColor: Colors.transparent,
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
         ));
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>admindashboard()));
+        Navigator.of(context).pushReplacementNamed('/home');
       } catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Failed to login :$error'),
@@ -90,7 +101,7 @@ class _adminloginState extends State<adminlogin> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextField(
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       controller: _adminnamecontoller,
                       cursorColor: linkColor,
                       decoration: InputDecoration(
@@ -183,6 +194,7 @@ class _adminloginState extends State<adminlogin> {
                       padding: EdgeInsets.only(left: 20, right: 20, top: 8),
                       child: ElevatedButton(
                         onPressed: loginuser,
+
                         child: Text(
                           'Login',
                           style:
